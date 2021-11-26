@@ -16,7 +16,6 @@ const MainScreen = (props: any) => {
 export const screenOptions = (navData: any) => {
   return {
     headerTitle: 'Home',
-    headerLeft: () => <Text onPress={() => alert('pressed')}>Open Drawer</Text>,
   };
 };
 
