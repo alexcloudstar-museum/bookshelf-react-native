@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../../constants/colors';
 
-const Login = () => {
+const Login:FC = ({children}) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.formControl}>
@@ -13,6 +13,7 @@ const Login = () => {
         <Text style={styles.label}>Password</Text>
         <TextInput style={styles.input}  />
       </View>
+      {children}
 		</View>
 	)
 }

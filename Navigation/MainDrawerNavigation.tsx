@@ -1,8 +1,7 @@
-import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ProfileScreen, { screenOptions as screenOptionsProfileScreen } from '../screens/ProfileScreen';
-import MainStackNavigation from './MainStackNavigation';
-import { screenOptions  } from '../screens/MainScreen';
+import React from 'react';
+import Home from '../screens/Home';
+import ProfileScreen from '../screens/ProfileScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -17,7 +16,7 @@ const screenOptionStyle = {
 
 const MainDrawerNavigation =() => (
 	<Drawer.Navigator screenOptions={screenOptionStyle}>
-		<Drawer.Screen name="Main" component={MainStackNavigation} />
+		<Drawer.Screen name='Home' component={Home} />
 		<Drawer.Screen name="Profile" component={ProfileScreen}  />
 	</Drawer.Navigator>
 )
