@@ -1,29 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Platform, StyleSheet, Text, View } from 'react-native';
-import Login from '../components/User/Login';
-import Register from '../components/User/Register';
+import Auth from '../components/User/Auth';
 import { colors } from '../constants/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import * as authActions from '../store/actions/authActions';
 
-const AuthScreen = (props: any) => {
-  const [isLogin, setIsLogin] = useState(true);
+const AuthScreen = ({ navigation }: any) => {
+  const [isSignup, setIsSignup] = useState(true); // !: change this back to true
+  const dispatch = useDispatch();
 
-  const navigateToHome = () => props.navigation.replace('MainScreen');
+  useEffect(() => {
+    const tryLogin = async () => {
+      const userData = await AsyncStorage.getItem('userData');
+
+      if (!userData) {
+        navigation.replace('Auth');
+        return;
+      }
+
+      const parsedData = JSON.parse(userData);
+      const { token, userId, expirationTime } = parsedData;
+
+      const expirationDate = new Date(expirationTime);
+
+      if (expirationDate <= new Date() || !token || !userId) {
+        navigation.replace('Auth');
+        return;
+      }
+
+      const newExpirationDate = expirationDate.getTime() - new Date().getTime();
+
+      navigation.replace('MainScreen');
+      dispatch(authActions.authenticate(token, userId, newExpirationDate));
+    };
+
+    tryLogin()
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Please {isLogin ? 'Login' : 'Register'}</Text>
-      {isLogin ? (
-        <Login>
-          <Button title='Login' onPress={navigateToHome} />
-        </Login>
-      ) : (
-        <Register>
-          <Button title='Register' onPress={navigateToHome} />
-        </Register>
-      )}
+      <Text style={styles.title}>
+        Please {!isSignup ? 'Login' : 'Register'}
+      </Text>
+      <Auth isSignup={isSignup} navigation={navigation} />
       <Button
-        title={isLogin ? 'Switch to Register' : 'Switch to Login'}
-        onPress={() => setIsLogin(!isLogin)}
+        title={!isSignup ? 'Switch to Register' : 'Switch to Login'}
+        onPress={() => setIsSignup(!isSignup)}
         color={Platform.OS === 'android' ? '#fff' : colors.secondary}
       />
     </View>
