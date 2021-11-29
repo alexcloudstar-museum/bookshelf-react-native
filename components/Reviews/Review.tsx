@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 2,
     shadowOpacity: 0.25,
+    elevation: 5
   },
   reviewUsername: {
     fontSize: 22,

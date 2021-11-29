@@ -3,7 +3,8 @@ import React from 'react';
 import AuthScreen, {
   screenOptions as screenOptionsAuthScreen
 } from '../screens/AuthScreen';
-import BookDetails from '../screens/BookDetails';
+import AddBook, { screenOptions as screenOptionsAddBook } from '../screens/Books/AddBook';
+import BookDetails from '../screens/Books/BookDetails';
 import MainDrawerNavigation from './MainDrawerNavigation';
 
 
@@ -33,6 +34,7 @@ const MainStackNavigation = () => {
         options={{ headerShown: false }}
       />
      <Stack.Screen name="BookDetails" component={BookDetails} />
+     <Stack.Screen name="AddBook" component={AddBook} options={screenOptionsAddBook} />
     </Stack.Navigator>
   );
 };

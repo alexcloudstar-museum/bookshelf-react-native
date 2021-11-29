@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Rating from '../components/Rating';
-import { Reviews } from '../components/Reviews';
+import Rating from '../../components/Rating';
+import { Reviews } from '../../components/Reviews';
 
 const BookDetails = (props: any) => {
   const { title, imageSource, rating, reviews } = props.route.params;
