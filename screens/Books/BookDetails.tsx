@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Rating from '../../components/Rating';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Reviews } from '../../components/Reviews';
 
 const BookDetails = (props: any) => {
@@ -20,6 +21,21 @@ const BookDetails = (props: any) => {
       </View>
     </ScrollView>
   );
+};
+
+export const screenOptions = (navData: any) => {
+
+  return {
+    headerTitle: navData.route.params.title,
+    headerRight: () =>
+      navData.route.params.canEditBook ? (
+        <View>
+          <FontAwesome5 name='edit' size={24} color='black' />
+        </View>
+      ) : (
+        <></>
+      ),
+  };
 };
 
 const styles = StyleSheet.create({

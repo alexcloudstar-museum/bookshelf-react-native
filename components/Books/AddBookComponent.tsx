@@ -25,6 +25,7 @@ const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
   });
 
   const onChangeText = (key: string, value: string) => {
+
     setFormState({
       ...formState,
       [key]: value,
@@ -36,6 +37,9 @@ const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
   const onAddBook = useCallback(async () => {
     setError(null);
     setIsLoading(false);
+
+
+    console.log(formState)
 
     try {
       await dispatch(

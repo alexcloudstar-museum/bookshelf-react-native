@@ -1,9 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React, { FC } from 'react';
 import {
+  FlatList,
   StyleSheet, Text, TouchableWithoutFeedback, View
 } from 'react-native';
+import { useSelector } from 'react-redux';
+import Book from '../../components/Books/Book';
+import { ReduxState } from '../../store/types';
 import { BookType } from '../../types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 type MyBooksProps = {
   books?: BookType[];
@@ -11,7 +17,9 @@ type MyBooksProps = {
 };
 
 const MyBooks: FC<MyBooksProps> = ({ books, navigation }) => {
-  if (!books) {
+  const booksState = useSelector((state: ReduxState) => state.books.userBooks);
+
+  if (!booksState.length) {
     return (
       <View style={styles.container}>
         <Text style={styles.noBooksText}>No books, maybe start add some</Text>
@@ -25,9 +33,25 @@ const MyBooks: FC<MyBooksProps> = ({ books, navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>My Books</Text>
-    </View>
+    <FlatList
+      contentContainerStyle={styles.container}
+      data={booksState}
+      renderItem={itemData => (
+        <Book
+          title={itemData.item.title}
+          imageUrl={itemData.item.imageUrl}
+          onPress={() =>
+            navigation.navigate('BookDetails', {
+              canEditBook: true,
+              title: itemData.item.title,
+              imageUrl: itemData.item.imageUrl,
+              rating: itemData.item.rating,
+              reviews: itemData.item.reviews,
+            })
+          }
+        />
+      )}
+    />
   );
 };
 

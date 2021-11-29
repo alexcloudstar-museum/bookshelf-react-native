@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { colors } from '../../constants/colors';
 
 type BookProps = {
   onPress: () => void;

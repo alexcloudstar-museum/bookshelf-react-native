@@ -49,10 +49,7 @@ const Auth: FC<{ isSignup: boolean; navigation: any }> = ({
       action =
         formState.email &&
         formState.password &&
-        authActions.login(
-          formState.email,
-          formState.password
-        );
+        authActions.login(formState.email, formState.password);
     }
 
     setError(null);
@@ -74,8 +71,8 @@ const Auth: FC<{ isSignup: boolean; navigation: any }> = ({
     ]);
   }
 
-  if(isLoading) {
-    return <ActivityIndicator size="large" color={colors.primary} />
+  if (isLoading) {
+    return <ActivityIndicator size='large' color={colors.primary} />;
   }
 
   return (
@@ -103,7 +100,9 @@ const Auth: FC<{ isSignup: boolean; navigation: any }> = ({
           onChangeText={onChangeText.bind(this, 'password')}
         />
       </View>
-      <Button title={isSignup ? 'Register' : 'Login'} onPress={onPress} />
+      <View style={styles.buttonWrapper}>
+        <Button title={isSignup ? 'Register' : 'Login'} onPress={onPress} />
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -125,6 +124,11 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     borderBottomWidth: 1,
     borderBottomColor: colors.primary,
+  },
+  buttonWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+
   },
 });
 

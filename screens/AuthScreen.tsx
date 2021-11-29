@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import * as authActions from '../store/actions/authActions';
 
 const AuthScreen = ({ navigation }: any) => {
-  const [isSignup, setIsSignup] = useState(true); // !: change this back to true
+  const [isSignup, setIsSignup] = useState(false); // !: change this back to true
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const AuthScreen = ({ navigation }: any) => {
       const userData = await AsyncStorage.getItem('userData');
 
       if (!userData) {
-        navigation.replace('Auth');
+        navigation.navigate('MainScreen');
         return;
       }
 
@@ -25,13 +25,13 @@ const AuthScreen = ({ navigation }: any) => {
       const expirationDate = new Date(expirationTime);
 
       if (expirationDate <= new Date() || !token || !userId) {
-        navigation.replace('Auth');
+        navigation.navigate('MainScreen');
         return;
       }
 
       const newExpirationDate = expirationDate.getTime() - new Date().getTime();
 
-      navigation.replace('MainScreen');
+      navigation.navigate('MainScreen');
       dispatch(authActions.authenticate(token, userId, newExpirationDate));
     };
 
@@ -44,11 +44,13 @@ const AuthScreen = ({ navigation }: any) => {
         Please {!isSignup ? 'Login' : 'Register'}
       </Text>
       <Auth isSignup={isSignup} navigation={navigation} />
-      <Button
-        title={!isSignup ? 'Switch to Register' : 'Switch to Login'}
-        onPress={() => setIsSignup(!isSignup)}
-        color={Platform.OS === 'android' ? '#fff' : colors.secondary}
-      />
+      <View style={{ marginVertical: 10 }}>
+        <Button
+          title={!isSignup ? 'Switch to Register' : 'Switch to Login'}
+          onPress={() => setIsSignup(!isSignup)}
+          color={colors.secondary}
+        />
+      </View>
     </View>
   );
 };

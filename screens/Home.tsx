@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator, Button,
+  ActivityIndicator,
+  Button,
   FlatList,
-  StyleSheet, Text, View
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Book from '../components/Books/Book';
@@ -15,9 +18,7 @@ const Home = (props: any) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<null | string>();
 
-  const books = useSelector(
-    (state: ReduxState) => state.books.availableBooks
-  );
+  const books = useSelector((state: ReduxState) => state.books.availableBooks);
   const dispatch = useDispatch();
 
   const loadBooks = useCallback(async () => {
@@ -30,16 +31,9 @@ const Home = (props: any) => {
       setError(error.message);
     }
 
+    setIsLoading(false);
     setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError, setIsRefreshing]);
-
-  // useEffect(() => {
-  //   const willFocusSub = props.navigation.addListener('willFocus', loadBooks);
-
-  //   return () => {
-  //     if (willFocusSub) willFocusSub.remove();
-  //   };
-  // }, [loadBooks]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,12 +61,12 @@ const Home = (props: any) => {
   if (!isLoading && !books.length) {
     return (
       <View style={styles.centered}>
-        <Text style={{textAlign: 'center', fontSize: 18}}>No books found. Maybe start adding some!</Text>
+        <Text style={{ textAlign: 'center', fontSize: 18 }}>
+          No books found. Maybe start adding some!
+        </Text>
       </View>
     );
   }
-
-  console.log(books)
 
   return (
     <FlatList
@@ -104,7 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
-
   },
 });
 

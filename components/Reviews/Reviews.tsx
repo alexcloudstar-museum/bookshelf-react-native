@@ -6,7 +6,7 @@ import Review from './Review';
 const Reviews: FC<{ reviews: ReviewType[] }> = ({ reviews }) => {
   return (
     <View style={styles.reviewsContainer}>
-      {reviews.map(({ id, title, username }: ReviewType) => (
+      {reviews?.map(({ id, title, username }: ReviewType) => (
         <Review key={id} id={id} title={title} username={username} />
       ))}
     </View>
