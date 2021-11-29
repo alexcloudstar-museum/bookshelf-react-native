@@ -4,14 +4,14 @@ import { View, Text, StyleSheet } from 'react-native'
 const ProfileScreen = () => {
 	return (
 		<View>
-			<Text>Profile</Text>
+			<Text>My Books</Text>
 		</View>
 	)
 }
 
 export const screenOptions = (navData: any) => {
 	return {
-		headerTitle: 'Profile',
+		headerTitle: 'My Books',
 	}
 }
 

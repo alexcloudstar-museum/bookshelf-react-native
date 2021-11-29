@@ -1,31 +1,59 @@
 import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
 import { ReviewType } from '../types';
+import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Reviews } from '../components/Reviews';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const BookDetails = (props: any) => {
   const { title, imageSource, rating, reviews } = props.route.params;
 
+  const onFinishRating = (rating: number) => {
+    console.log('rating: ', rating);
+  };
+
   return (
-    <View>
-      <Image source={{ uri: imageSource }} style={styles.image} />
-      <Text>{title}</Text>
-      <Text>Rating: {rating}</Text>
-      <View>
-        {reviews.map((review: ReviewType) => (
-          <View key={review.id}>
-						<Text>{review.title}</Text>
-            <Text>{review.username}</Text>
-          </View>
-        ))}
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <Image source={{ uri: imageSource }} style={styles.image} />
+          <Text style={styles.bookTitle}>{title}</Text>
+        </View>
+
+        <View style={styles.ratingContainer}>
+          <AirbnbRating
+            showRating={false}
+            onFinishRating={onFinishRating}
+            defaultRating={rating}
+          />
+        </View>
+        <Reviews reviews={reviews} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  innerContainer: {
+    marginVertical: 20,
+  },
+  bookTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    letterSpacing: 1.5,
+  },
   image: {
-    height: 200,
-    width: 200,
+    height: 350,
+    width: 250,
+    marginBottom: 20,
+  },
+  ratingContainer: {
+    marginBottom: 30,
   },
 });
 
