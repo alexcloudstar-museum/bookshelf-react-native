@@ -4,16 +4,16 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 type BookProps = {
   onPress: () => void;
-  imageSource: string;
+  imageUrl: string;
   title: string;
 };
 
-const Book: FC<BookProps> = ({ onPress, imageSource, title }) => {
+const Book: FC<BookProps> = ({ onPress, imageUrl, title }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image
         source={{
-          uri: 'https://s3.comisarul.ro/41545b913ee440c909576851876a8eb9.jpg',
+          uri: imageUrl,
         }}
         style={styles.image}
       />

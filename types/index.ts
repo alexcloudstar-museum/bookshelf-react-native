@@ -1,6 +1,7 @@
 export type BookType = {
   id: string;
-  imageSource: string;
+  ownerId: string;
+  imageUrl: string;
   title: string;
   rating: number;
   reviews: ReviewType[];

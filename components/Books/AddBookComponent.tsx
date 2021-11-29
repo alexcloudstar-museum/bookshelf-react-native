@@ -1,26 +1,93 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  Button,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
+import { colors } from '../../constants/colors';
+import * as bookActions from '../../store/actions/bookActions';
 
-const AddBookComponen = () => {
-  const onChangeText = (text: string) => {
-    console.log(text);
+const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<null | string>();
+  const [formState, setFormState] = useState<{
+    title: string;
+    imageUrl: string;
+  }>({
+    title: '',
+    imageUrl: '',
+  });
+
+  const onChangeText = (key: string, value: string) => {
+    setFormState({
+      ...formState,
+      [key]: value,
+    });
   };
 
-  const onAddBook = () => {};
+  const dispatch = useDispatch();
+
+  const onAddBook = useCallback(async () => {
+    setError(null);
+    setIsLoading(false);
+
+    try {
+      await dispatch(
+        bookActions.createBook(formState.title, formState.imageUrl, 0, [])
+      );
+
+      navigation.goBack();
+    } catch (error: any) {
+      setError(error.message);
+    }
+
+    setIsLoading(false);
+  }, [dispatch, formState]);
+
+  useEffect(() => {
+    if (error) {
+      setIsLoading(false);
+      Alert.alert('Error', error, [
+        { text: 'OK', onPress: () => setError(null) },
+      ]);
+    }
+  }, [error]);
+
+  if (isLoading)
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size='large' color={colors.primary} />
+      </View>
+    );
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior='padding'
+      keyboardVerticalOffset={50}
+    >
       <View style={styles.formControl}>
         <Text style={styles.label}>Title:</Text>
-        <TextInput onChangeText={onChangeText} style={styles.input} />
+        <TextInput
+          onChangeText={onChangeText.bind(this, 'title')}
+          style={styles.input}
+        />
       </View>
       <View style={styles.formControl}>
         <Text style={styles.label}>Image:</Text>
-        <TextInput onChangeText={onChangeText} style={styles.input} />
+        <TextInput
+          onChangeText={onChangeText.bind(this, 'imageUrl')}
+          style={styles.input}
+        />
       </View>
       <Button title='Add Book' onPress={onAddBook} />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -43,6 +110,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 5,
   },
+  centered: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
 });
 
-export default AddBookComponen;
+export default AddBookComponent;

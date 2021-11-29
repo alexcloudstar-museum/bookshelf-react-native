@@ -1,13 +1,9 @@
 import { AUTHENTICATE, LOGOUT } from '../actions/authActions';
+import { ActionType } from '../types';
 
-type AuthState = {
+export type AuthState = {
   token: string | null;
   userId: string | null;
-};
-
-type AuthAction = {
-  type: string;
-  [key: string]: any;
 };
 
 const initialState: AuthState = {
@@ -15,7 +11,7 @@ const initialState: AuthState = {
   userId: null,
 };
 
-export default (state = initialState, action: AuthAction) => {
+export default (state = initialState, action: ActionType) => {
   switch (action.type) {
     case AUTHENTICATE:
       return {

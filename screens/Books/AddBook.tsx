@@ -2,11 +2,11 @@ import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import AddBookComponent from '../../components/Books/AddBookComponent'
 
-const AddBook = () => {
+const AddBook = (props: any) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Please fill the inputs below</Text>
-			<AddBookComponent/>
+			<AddBookComponent navigation={props.navigation}  />
 		</View>
 	)
 }

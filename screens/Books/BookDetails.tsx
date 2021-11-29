@@ -5,13 +5,13 @@ import Rating from '../../components/Rating';
 import { Reviews } from '../../components/Reviews';
 
 const BookDetails = (props: any) => {
-  const { title, imageSource, rating, reviews } = props.route.params;
+  const { title, imageUrl, rating, reviews } = props.route.params;
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Image source={{ uri: imageSource }} style={styles.image} />
+          <Image source={{ uri: imageUrl }} style={styles.image} />
           <Text style={styles.bookTitle}>{title}</Text>
         </View>
 
