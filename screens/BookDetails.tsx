@@ -1,16 +1,11 @@
 import React from 'react';
-import { Image, Text, View, StyleSheet } from 'react-native';
-import { ReviewType } from '../types';
-import { Rating, AirbnbRating } from 'react-native-ratings';
-import { Reviews } from '../components/Reviews';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Rating from '../components/Rating';
+import { Reviews } from '../components/Reviews';
 
 const BookDetails = (props: any) => {
   const { title, imageSource, rating, reviews } = props.route.params;
-
-  const onFinishRating = (rating: number) => {
-    console.log('rating: ', rating);
-  };
 
   return (
     <ScrollView>
@@ -20,13 +15,7 @@ const BookDetails = (props: any) => {
           <Text style={styles.bookTitle}>{title}</Text>
         </View>
 
-        <View style={styles.ratingContainer}>
-          <AirbnbRating
-            showRating={false}
-            onFinishRating={onFinishRating}
-            defaultRating={rating}
-          />
-        </View>
+        <Rating rating={rating} />
         <Reviews reviews={reviews} />
       </View>
     </ScrollView>
@@ -51,9 +40,6 @@ const styles = StyleSheet.create({
     height: 350,
     width: 250,
     marginBottom: 20,
-  },
-  ratingContainer: {
-    marginBottom: 30,
   },
 });
 
