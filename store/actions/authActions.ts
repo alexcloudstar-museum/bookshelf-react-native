@@ -101,12 +101,16 @@ export const login = (email: string, password: string) => {
 
         let message = 'Something went wrong!';
 
+        console.log(errorId);
+
         if (errorId === 'EMAIL_NOT_FOUND') {
           message = 'This email could not be found.';
         } else if (errorId === 'INVALID_PASSWORD') {
           message = 'This password is not valid.';
         } else if (errorId === 'MISSING_PASSWORD') {
           message = 'Missing password.';
+        } else if (errorId === 'EMAIL_NOT_FOUND') {
+          message = 'Email was not found.';
         }
 
         throw new Error(message);

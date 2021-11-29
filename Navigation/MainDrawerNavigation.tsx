@@ -17,7 +17,7 @@ const screenOptionStyle = {
 const MainDrawerNavigation =() => (
 	<Drawer.Navigator screenOptions={screenOptionStyle}>
 		<Drawer.Screen name='Home' component={Home} />
-		<Drawer.Screen name="My Books" component={MyBooks} options={screenOptionsMyBooks} />
+		<Drawer.Screen name="MyBooks" component={MyBooks} options={screenOptionsMyBooks} />
 	</Drawer.Navigator>
 )
 

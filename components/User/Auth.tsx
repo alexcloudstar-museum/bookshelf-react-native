@@ -13,11 +13,13 @@ import { useDispatch } from 'react-redux';
 import { colors } from '../../constants/colors';
 import * as authActions from '../../store/actions/authActions';
 
-const Auth: FC<{ isSignup: boolean; navigation: any }> = ({
-  isSignup,
-  navigation,
-}) => {
-  const [isLoading, setIsLoading] = useState(false);
+type AuthProps = {
+  isSignup: boolean;
+  navigation: any;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Auth: FC<AuthProps> = ({ isSignup, navigation, setIsLoading }) => {
   const [error, setError] = useState<null | string>();
   const [formState, setFormState] = useState<{
     email?: string;
@@ -69,10 +71,6 @@ const Auth: FC<{ isSignup: boolean; navigation: any }> = ({
     Alert.alert('An error occurred!', error, [
       { text: 'Okay', onPress: () => setError(null) },
     ]);
-  }
-
-  if (isLoading) {
-    return <ActivityIndicator size='large' color={colors.primary} />;
   }
 
   return (
@@ -128,7 +126,6 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-
   },
 });
 

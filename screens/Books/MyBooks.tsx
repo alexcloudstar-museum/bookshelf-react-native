@@ -2,7 +2,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React, { FC } from 'react';
 import {
   FlatList,
-  StyleSheet, Text, TouchableWithoutFeedback, View
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import Book from '../../components/Books/Book';
@@ -10,16 +13,14 @@ import { ReduxState } from '../../store/types';
 import { BookType } from '../../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 type MyBooksProps = {
-  books?: BookType[];
   navigation: any;
 };
 
-const MyBooks: FC<MyBooksProps> = ({ books, navigation }) => {
-  const booksState = useSelector((state: ReduxState) => state.books.userBooks);
+const MyBooks: FC<MyBooksProps> = ({ navigation }) => {
+  const books = useSelector((state: ReduxState) => state.books.userBooks);
 
-  if (!booksState.length) {
+  if (!books.length) {
     return (
       <View style={styles.container}>
         <Text style={styles.noBooksText}>No books, maybe start add some</Text>
@@ -35,13 +36,15 @@ const MyBooks: FC<MyBooksProps> = ({ books, navigation }) => {
   return (
     <FlatList
       contentContainerStyle={styles.container}
-      data={booksState}
+      data={books}
+      keyExtractor={(item: BookType) => item.id}
       renderItem={itemData => (
         <Book
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
           onPress={() =>
             navigation.navigate('BookDetails', {
+              bookId: itemData.item.id,
               canEditBook: true,
               title: itemData.item.title,
               imageUrl: itemData.item.imageUrl,
