@@ -12,9 +12,7 @@ const Rating: FC<{ bookId: string; rating: number; disabled?: boolean }> = ({
   const dispatch = useDispatch();
 
   const onFinishRating = (rating: number) => {
-    console.log(bookId);
     dispatch(bookActions.updateRating(bookId, rating));
-    console.log('rating: ', rating);
   };
 
   return (

@@ -102,17 +102,20 @@ export default (state = initialState, action: ActionType) => {
       const reviewsBookIndex = state.availableBooks.findIndex(
         book => book.id === action.bid
       );
+      const reviewsAvailableBook = state.availableBooks.find(
+        book => book.id === action.bid
+      );
 
-      if (availableBook) {
+      if (reviewsAvailableBook) {
         const reviewsUpdatedBook: BookType = {
-          id: availableBook.id,
-          title: availableBook.title,
-          imageUrl: availableBook.imageUrl,
-          ownerId: availableBook.ownerId,
-          rating: availableBook.rating,
-          reviews: availableBook.reviews
-            ? [...availableBook.reviews, action.bookData.review]
-            : [action.bookData.review],
+          id: reviewsAvailableBook.id,
+          title: reviewsAvailableBook.title,
+          imageUrl: reviewsAvailableBook.imageUrl,
+          ownerId: reviewsAvailableBook.ownerId,
+          rating: reviewsAvailableBook.rating,
+          reviews: reviewsAvailableBook
+            ? [...reviewsAvailableBook.reviews, action.bookData.review]
+            : [action.bookData.reviews],
         };
 
         const updatedReviewsBooks = [...state.availableBooks];

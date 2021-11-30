@@ -46,6 +46,7 @@ const AuthScreen = ({ navigation }: any) => {
     };
 
     tryLogin();
+
   }, [dispatch]);
 
   if (isLoading)

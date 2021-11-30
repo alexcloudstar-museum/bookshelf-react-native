@@ -40,7 +40,7 @@ const AddBookComponent: FC<AddBookProps> = ({
     imageUrl: imageUrl ? imageUrl : '',
   });
 
-  const onChangeText = (key: string, value: string) => {
+  const onChangeText = (key: keyof BookType, value: string) => {
     setFormState({
       ...formState,
       [key]: value,

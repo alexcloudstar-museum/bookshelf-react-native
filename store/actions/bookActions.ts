@@ -184,10 +184,9 @@ export const updateRating = (id: string, rating: number) => {
   };
 };
 
-export const updateReview = (id: string, review: ReviewType) => {
+export const updateReview = (id: string, reviews: ReviewType[]) => {
   return async (dispatch: any, getState: () => ReduxState) => {
     const token = getState().auth.token;
-
     try {
       const response = await fetch(
         `${env.firebaseRDURL}/books/${id}.json?auth=${token}`,
@@ -197,7 +196,7 @@ export const updateReview = (id: string, review: ReviewType) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            review,
+            reviews,
           }),
         }
       );
@@ -209,9 +208,10 @@ export const updateReview = (id: string, review: ReviewType) => {
       dispatch({
         type: UPDATE_BOOK_REVIEWS,
         bid: id,
-        bookData: { review },
+        bookData: { reviews },
       });
     } catch (error: any) {
+      console.log(error);
       throw new Error(error.message);
     }
   };

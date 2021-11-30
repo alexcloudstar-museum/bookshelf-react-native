@@ -5,6 +5,7 @@ import AuthScreen, {
 } from '../screens/AuthScreen';
 import AddBook, { screenOptions as screenOptionsAddBook } from '../screens/Books/AddBook';
 import BookDetails, { screenOptions as screenOptionsBookDetails } from '../screens/Books/BookDetails';
+import ReviewScreen, {screenOptions as screenOptionsReviewScreen} from '../screens/Reviews/ReviewScreen';
 import MainDrawerNavigation from './MainDrawerNavigation';
 
 
@@ -35,6 +36,7 @@ const MainStackNavigation = () => {
       />
      <Stack.Screen name="BookDetails" component={BookDetails} options={screenOptionsBookDetails} />
      <Stack.Screen name="AddBook" component={AddBook} options={screenOptionsAddBook} />
+     <Stack.Screen name="AddReview" component={ReviewScreen} options={screenOptionsReviewScreen} />
     </Stack.Navigator>
   );
 };

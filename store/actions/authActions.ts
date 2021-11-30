@@ -117,7 +117,6 @@ export const login = (email: string, password: string) => {
       }
 
       const resData = await response.json();
-      console.log(resData);
 
       dispatch(
         authenticate(
