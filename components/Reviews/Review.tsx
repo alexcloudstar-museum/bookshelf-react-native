@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { isSmallerScreen } from '../../helpers/screenDimension';
 import { ReviewType } from '../../types';
 
 const Review: FC<ReviewType> = ({ title, username }) => (
@@ -24,11 +25,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   reviewUsername: {
-    fontSize: 22,
+    fontSize: isSmallerScreen ? 14 : 22,
     fontWeight: '700',
   },
   reviewTitle: {
-    fontSize: 18,
+    fontSize: isSmallerScreen ? 12 : 18,
     marginTop: 10,
     fontWeight: '500',
   },

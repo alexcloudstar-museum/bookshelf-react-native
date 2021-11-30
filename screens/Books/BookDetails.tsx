@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import Rating from '../../components/Rating';
 import { Reviews } from '../../components/Reviews';
+import { isSmallerScreen } from '../../helpers/screenDimension';
 import * as bookActions from '../../store/actions/bookActions';
 
 const BookDetails = (props: any) => {
@@ -30,7 +31,7 @@ const BookDetails = (props: any) => {
         </View>
 
         <Rating bookId={bookId} rating={rating} disabled={canEditBook} />
-        <Text style={{ fontSize: 18 }}>Reviews: </Text>
+        <Text style={{ fontSize: isSmallerScreen ? 14 : 18 }}>Reviews: </Text>
         <Reviews reviews={reviews} />
 
         {canEditBook && <Button title='Delete Book' onPress={onDeleteBook} />}
@@ -84,8 +85,8 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
   },
   image: {
-    height: 350,
-    width: 250,
+    width: isSmallerScreen ? 150 : 250,
+    height: isSmallerScreen ? 250 : 350,
     marginBottom: 20,
   },
 });

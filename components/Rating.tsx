@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 import { useDispatch } from 'react-redux';
+import { isSmallerScreen } from '../helpers/screenDimension';
 import * as bookActions from '../store/actions/bookActions';
 
 const Rating: FC<{ bookId: string; rating: number; disabled?: boolean }> = ({
@@ -18,6 +19,7 @@ const Rating: FC<{ bookId: string; rating: number; disabled?: boolean }> = ({
   return (
     <View style={styles.ratingContainer}>
       <AirbnbRating
+      size={isSmallerScreen ? 20 : 30}
         showRating={false}
         onFinishRating={onFinishRating}
         defaultRating={rating || 0}

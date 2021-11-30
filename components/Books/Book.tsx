@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { isSmallerScreen } from '../../helpers/screenDimension';
 import Rating from '../Rating';
 
 type BookProps = {
@@ -29,8 +30,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   image: {
-    width: 260,
-    height: 300,
+    width: isSmallerScreen ? 160 : 260,
+    height: isSmallerScreen ? 200 : 300,
     resizeMode: 'contain',
     margin: 8,
   },
