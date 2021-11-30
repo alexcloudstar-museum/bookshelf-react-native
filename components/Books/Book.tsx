@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { BookType } from '../../types';
 import Rating from '../Rating';
 
 type BookProps = {
@@ -11,6 +12,10 @@ type BookProps = {
 };
 
 const Book: FC<BookProps> = ({ bookId, onPress, imageUrl, title, rating }) => {
+
+
+
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image

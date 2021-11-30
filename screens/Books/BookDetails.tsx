@@ -30,7 +30,7 @@ const BookDetails = (props: any) => {
         </View>
 
         <Rating bookId={bookId} rating={rating} disabled={canEditBook} />
-        <Text>Reviews: </Text>
+        <Text style={{fontSize: 18}}>Reviews: </Text>
         <Reviews reviews={reviews} />
 
         {canEditBook && <Button title='Delete Book' onPress={onDeleteBook} />}

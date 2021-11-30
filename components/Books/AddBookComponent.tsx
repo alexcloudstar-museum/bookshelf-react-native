@@ -53,7 +53,7 @@ const AddBookComponent: FC<AddBookProps> = ({
     setError(null);
     setIsLoading(false);
 
-    console.log(isEditBook);
+
 
     try {
       setIsLoading(true);

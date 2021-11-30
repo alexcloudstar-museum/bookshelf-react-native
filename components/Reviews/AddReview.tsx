@@ -7,17 +7,21 @@ import {
   View,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
-import { ReviewType } from '../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { BookType, ReviewType } from '../../types';
 import * as bookActions from '../../store/actions/bookActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { usernames } from '../../data/users';
+import { ReduxState } from '../../store/types';
 
-const AddReview: FC<{ navigation: any; bookId: string; reviews: ReviewType[] }> = ({
-  navigation,
-  bookId,
-  reviews,
-}) => {
+const AddReview: FC<{
+  navigation: any;
+  bookId: string;
+  reviews: ReviewType[];
+}> = ({ navigation, bookId, reviews }) => {
+  const currentBook: BookType | undefined = useSelector((state: ReduxState) =>
+    state.books.availableBooks.find((book: BookType) => book.id === bookId)
+  );
   const dispatch = useDispatch();
   const userIdRef = useRef<string>('');
   const [formState, setFormState] = useState<ReviewType>({
@@ -53,15 +57,17 @@ const AddReview: FC<{ navigation: any; bookId: string; reviews: ReviewType[] }> 
   }, [userIdRef.current]);
 
   const onAddReview = () => {
-    const updatedReviews =  reviews ? [...reviews, formState] : [formState];
-    dispatch(
-      bookActions.updateReview(
-        bookId,
-        updatedReviews
-      )
-    );
+    const updatedReviews = reviews ? [...reviews, formState] : [formState];
+    dispatch(bookActions.updateReview(bookId, updatedReviews));
 
-    navigation.navigate('Home');
+    currentBook &&
+      navigation.navigate('BookDetails', {
+        bookId,
+        title: currentBook.title,
+        imageUrl: currentBook.imageUrl,
+        rating: currentBook.rating,
+        reviews: updatedReviews,
+      });
   };
 
   return (
