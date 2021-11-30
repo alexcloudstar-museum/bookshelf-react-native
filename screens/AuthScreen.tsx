@@ -1,16 +1,15 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Button,
-  Platform,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 import Auth from '../components/User/Auth';
 import { colors } from '../constants/colors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
 import * as authActions from '../store/actions/authActions';
 
 const AuthScreen = ({ navigation }: any) => {
@@ -46,7 +45,6 @@ const AuthScreen = ({ navigation }: any) => {
     };
 
     tryLogin();
-
   }, [dispatch]);
 
   if (isLoading)

@@ -1,11 +1,11 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { Button, Image, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
 import Rating from '../../components/Rating';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Reviews } from '../../components/Reviews';
 import * as bookActions from '../../store/actions/bookActions';
-import { useDispatch } from 'react-redux';
 
 const BookDetails = (props: any) => {
   const { bookId, canEditBook, title, imageUrl, rating, reviews } =
@@ -30,7 +30,7 @@ const BookDetails = (props: any) => {
         </View>
 
         <Rating bookId={bookId} rating={rating} disabled={canEditBook} />
-        <Text style={{fontSize: 18}}>Reviews: </Text>
+        <Text style={{ fontSize: 18 }}>Reviews: </Text>
         <Reviews reviews={reviews} />
 
         {canEditBook && <Button title='Delete Book' onPress={onDeleteBook} />}

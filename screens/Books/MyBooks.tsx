@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 import Book from '../../components/Books/Book';
 import { ReduxState } from '../../store/types';
 import { BookType } from '../../types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyBooksProps = {
   navigation: any;
@@ -40,7 +39,7 @@ const MyBooks: FC<MyBooksProps> = ({ navigation }) => {
       keyExtractor={(item: BookType) => item.id}
       renderItem={itemData => (
         <Book
-        bookId={itemData.item.id}
+          bookId={itemData.item.id}
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
           rating={itemData.item.rating}

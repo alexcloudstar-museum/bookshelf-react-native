@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
   Alert,
   Button,
   KeyboardAvoidingView,
@@ -10,7 +9,6 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
-import { colors } from '../../constants/colors';
 import * as bookActions from '../../store/actions/bookActions';
 import { BookType } from '../../types';
 
@@ -52,8 +50,6 @@ const AddBookComponent: FC<AddBookProps> = ({
   const onAddBook = useCallback(async () => {
     setError(null);
     setIsLoading(false);
-
-
 
     try {
       setIsLoading(true);

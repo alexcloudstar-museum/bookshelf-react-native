@@ -1,6 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { BookType } from '../../types';
 import Rating from '../Rating';
 
 type BookProps = {
@@ -11,24 +10,18 @@ type BookProps = {
   rating: number;
 };
 
-const Book: FC<BookProps> = ({ bookId, onPress, imageUrl, title, rating }) => {
-
-
-
-
-  return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Image
-        source={{
-          uri: imageUrl,
-        }}
-        style={styles.image}
-      />
-      <Text style={styles.title}>{title}</Text>
-      <Rating bookId={bookId} rating={rating} disabled />
-    </TouchableOpacity>
-  );
-};
+const Book: FC<BookProps> = ({ bookId, onPress, imageUrl, title, rating }) => (
+  <TouchableOpacity style={styles.container} onPress={onPress}>
+    <Image
+      source={{
+        uri: imageUrl,
+      }}
+      style={styles.image}
+    />
+    <Text style={styles.title}>{title}</Text>
+    <Rating bookId={bookId} rating={rating} disabled />
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {

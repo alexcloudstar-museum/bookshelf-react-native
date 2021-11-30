@@ -2,19 +2,17 @@ import React, { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ReviewType } from '../../types';
 
-const Review: FC<ReviewType> = ({ id, title, username }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.reviewUsername}>
-        {username && title && (
-          <>
-            {username}: <Text style={styles.reviewTitle}>{title}</Text>
-          </>
-        )}
-      </Text>
-    </View>
-  );
-};
+const Review: FC<ReviewType> = ({ title, username }) => (
+  <View style={styles.container}>
+    <Text style={styles.reviewUsername}>
+      {username && title && (
+        <>
+          {username}: <Text style={styles.reviewTitle}>{title}</Text>
+        </>
+      )}
+    </Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

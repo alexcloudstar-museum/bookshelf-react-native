@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import {
-  ActivityIndicator,
   Alert,
   Button,
   KeyboardAvoidingView,
@@ -17,7 +16,7 @@ type AuthProps = {
   isSignup: boolean;
   navigation: any;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const Auth: FC<AuthProps> = ({ isSignup, navigation, setIsLoading }) => {
   const [error, setError] = useState<null | string>();

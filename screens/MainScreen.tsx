@@ -1,17 +1,15 @@
 import React from 'react';
-import { Button, Text, View, StyleSheet } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-const MainScreen = (props: any) => {
-  return (
-    <View style={styles.container}>
-      <Text>Main Screen</Text>
-      <Button
-        title='Go to Book List Screen'
-        onPress={() => props.navigation.navigate('BooksListScreen')}
-      />
-    </View>
-  );
-};
+const MainScreen = (props: any) => (
+  <View style={styles.container}>
+    <Text>Main Screen</Text>
+    <Button
+      title='Go to Book List Screen'
+      onPress={() => props.navigation.navigate('BooksListScreen')}
+    />
+  </View>
+);
 
 export const screenOptions = (navData: any) => {
   return {

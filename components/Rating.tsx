@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
 import { useDispatch } from 'react-redux';
 import * as bookActions from '../store/actions/bookActions';

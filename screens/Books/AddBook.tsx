@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ActivityIndicator, StyleSheet, Text,
-  View
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import AddBookComponent from '../../components/Books/AddBookComponent';
 import { colors } from '../../constants/colors';
 
