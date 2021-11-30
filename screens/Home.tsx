@@ -76,10 +76,13 @@ const Home = (props: any) => {
       data={books}
       renderItem={itemData => (
         <Book
+          bookId={itemData.item.id}
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
+          rating={itemData.item.rating}
           onPress={() =>
             props.navigation.navigate('BookDetails', {
+              bookId: itemData.item.id,
               title: itemData.item.title,
               imageUrl: itemData.item.imageUrl,
               rating: itemData.item.rating,

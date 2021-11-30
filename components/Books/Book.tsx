@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { colors } from '../../constants/colors';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Rating from '../Rating';
 
 type BookProps = {
   onPress: () => void;
+  bookId: string;
   imageUrl: string;
   title: string;
+  rating: number;
 };
 
-const Book: FC<BookProps> = ({ onPress, imageUrl, title }) => {
+const Book: FC<BookProps> = ({ bookId, onPress, imageUrl, title, rating }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image
@@ -19,13 +20,7 @@ const Book: FC<BookProps> = ({ onPress, imageUrl, title }) => {
         style={styles.image}
       />
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.ratingContainer}>
-        <FontAwesome5 name='star' size={24} color='black' />
-        <FontAwesome5 name='star' size={24} color='black' />
-        <FontAwesome5 name='star' size={24} color='black' />
-        <FontAwesome5 name='star' size={24} color='black' />
-        <FontAwesome5 name='star' size={24} color='black' />
-      </View>
+      <Rating bookId={bookId} rating={rating} disabled />
     </TouchableOpacity>
   );
 };

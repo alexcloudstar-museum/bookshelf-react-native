@@ -13,10 +13,20 @@ const BookDetails = (props: any) => {
 
   const dispatch = useDispatch();
 
+  console.log(rating)
+
   const onDeleteBook = () => {
     dispatch(bookActions.deleteBook(bookId))
     props.navigation.goBack();
   };
+
+  const onAddReview = () => {
+    dispatch(bookActions.updateReview(bookId, {
+      id: '1',
+      title: 'Awesome book!',
+      username: 'John Doe',
+    }))
+  }
 
   return (
     <ScrollView>
@@ -26,10 +36,11 @@ const BookDetails = (props: any) => {
           <Text style={styles.bookTitle}>{title}</Text>
         </View>
 
-        <Rating rating={rating} />
+        <Rating bookId={bookId} rating={rating} disabled={canEditBook} />
         <Reviews reviews={reviews} />
 
         {canEditBook && <Button title='Delete Book' onPress={onDeleteBook} />}
+        {!canEditBook && <Button title='Add Review' onPress={onAddReview} />}
       </View>
     </ScrollView>
   );

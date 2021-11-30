@@ -6,6 +6,8 @@ export const DELETE_BOOK = 'DELETE_BOOK';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
 export const SET_BOOK = 'SET_BOOK';
+export const UPDATE_BOOK_RATING = 'UPDATE_BOOK_RATING';
+export const UPDATE_BOOK_REVIEWS = 'UPDATE_BOOK_REVIEWS';
 
 export const fetchBooks = () => {
   return async (dispatch: any, getState: () => ReduxState) => {
@@ -141,7 +143,73 @@ export const updateBook = (id: string, title: string, imageUrl: string) => {
       dispatch({
         type: UPDATE_BOOK,
         bid: id,
-        bookData: { title, imageUrl },
+        bookData: { title, imageUrl, rating: 0, reviews: [] },
+      });
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+};
+
+export const updateRating = (id: string, rating: number) => {
+  return async (dispatch: any, getState: () => ReduxState) => {
+    const token = getState().auth.token;
+
+    try {
+      const response = await fetch(
+        `${env.firebaseRDURL}/books/${id}.json?auth=${token}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            rating,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      dispatch({
+        type: UPDATE_BOOK_RATING,
+        bid: id,
+        bookData: { rating },
+      });
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+};
+
+export const updateReview = (id: string, review: ReviewType) => {
+  return async (dispatch: any, getState: () => ReduxState) => {
+    const token = getState().auth.token;
+
+    try {
+      const response = await fetch(
+        `${env.firebaseRDURL}/books/${id}.json?auth=${token}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            review,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      dispatch({
+        type: UPDATE_BOOK_REVIEWS,
+        bid: id,
+        bookData: { review },
       });
     } catch (error: any) {
       throw new Error(error.message);

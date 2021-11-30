@@ -40,8 +40,10 @@ const MyBooks: FC<MyBooksProps> = ({ navigation }) => {
       keyExtractor={(item: BookType) => item.id}
       renderItem={itemData => (
         <Book
+        bookId={itemData.item.id}
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
+          rating={itemData.item.rating}
           onPress={() =>
             navigation.navigate('BookDetails', {
               bookId: itemData.item.id,
