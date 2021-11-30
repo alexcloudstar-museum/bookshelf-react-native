@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
   Alert,
   Button,
   KeyboardAvoidingView,
@@ -10,22 +9,36 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
-import { colors } from '../../constants/colors';
 import * as bookActions from '../../store/actions/bookActions';
+import { BookType } from '../../types';
 
-const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
+type AddBookProps = {
+  navigation: any;
+  isEditBook?: boolean;
+  bookId?: string;
+  title?: BookType['title'];
+  imageUrl?: BookType['imageUrl'];
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const AddBookComponent: FC<AddBookProps> = ({
+  navigation,
+  isEditBook,
+  bookId,
+  title,
+  imageUrl,
+  setIsLoading,
+}) => {
   const [error, setError] = useState<null | string>();
   const [formState, setFormState] = useState<{
     title: string;
     imageUrl: string;
   }>({
-    title: '',
-    imageUrl: '',
+    title: title ? title : '',
+    imageUrl: imageUrl ? imageUrl : '',
   });
 
-  const onChangeText = (key: string, value: string) => {
-
+  const onChangeText = (key: keyof BookType, value: string) => {
     setFormState({
       ...formState,
       [key]: value,
@@ -38,15 +51,19 @@ const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
     setError(null);
     setIsLoading(false);
 
-
-    console.log(formState)
-
     try {
-      await dispatch(
-        bookActions.createBook(formState.title, formState.imageUrl, 0, [])
-      );
+      setIsLoading(true);
+      if (isEditBook && bookId) {
+        await dispatch(
+          bookActions.updateBook(bookId, formState.title, formState.imageUrl)
+        );
+      } else {
+        await dispatch(
+          bookActions.createBook(formState.title, formState.imageUrl, 0, [])
+        );
+      }
 
-      navigation.goBack();
+      navigation.navigate('MyBooks');
     } catch (error: any) {
       setError(error.message);
     }
@@ -63,13 +80,6 @@ const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
     }
   }, [error]);
 
-  if (isLoading)
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size='large' color={colors.primary} />
-      </View>
-    );
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -79,6 +89,7 @@ const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
       <View style={styles.formControl}>
         <Text style={styles.label}>Title:</Text>
         <TextInput
+          value={formState.title}
           onChangeText={onChangeText.bind(this, 'title')}
           style={styles.input}
         />
@@ -86,11 +97,15 @@ const AddBookComponent: FC<{ navigation: any }> = ({ navigation }) => {
       <View style={styles.formControl}>
         <Text style={styles.label}>Image:</Text>
         <TextInput
+          value={formState.imageUrl}
           onChangeText={onChangeText.bind(this, 'imageUrl')}
           style={styles.input}
         />
       </View>
-      <Button title='Add Book' onPress={onAddBook} />
+      <Button
+        title={isEditBook ? 'Edit Book' : 'Add Book'}
+        onPress={onAddBook}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -113,11 +128,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     fontSize: 18,
     paddingVertical: 5,
-  },
-  centered: {
-    flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
   },
 });
 

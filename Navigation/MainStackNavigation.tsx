@@ -1,12 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import AuthScreen, {
-  screenOptions as screenOptionsAuthScreen
+  screenOptions as screenOptionsAuthScreen,
 } from '../screens/AuthScreen';
-import AddBook, { screenOptions as screenOptionsAddBook } from '../screens/Books/AddBook';
-import BookDetails, { screenOptions as screenOptionsBookDetails } from '../screens/Books/BookDetails';
+import AddBook, {
+  screenOptions as screenOptionsAddBook,
+} from '../screens/Books/AddBook';
+import BookDetails, {
+  screenOptions as screenOptionsBookDetails,
+} from '../screens/Books/BookDetails';
+import ReviewScreen, {
+  screenOptions as screenOptionsReviewScreen,
+} from '../screens/Reviews/ReviewScreen';
 import MainDrawerNavigation from './MainDrawerNavigation';
-
 
 const Stack = createNativeStackNavigator();
 
@@ -17,8 +23,6 @@ const screenOptionStyle = {
   headerTintColor: 'white',
   headerBackTitle: 'Back',
 };
-
-
 
 const MainStackNavigation = () => {
   return (
@@ -33,8 +37,21 @@ const MainStackNavigation = () => {
         component={MainDrawerNavigation}
         options={{ headerShown: false }}
       />
-     <Stack.Screen name="BookDetails" component={BookDetails} options={screenOptionsBookDetails} />
-     <Stack.Screen name="AddBook" component={AddBook} options={screenOptionsAddBook} />
+      <Stack.Screen
+        name='BookDetails'
+        component={BookDetails}
+        options={screenOptionsBookDetails}
+      />
+      <Stack.Screen
+        name='AddBook'
+        component={AddBook}
+        options={screenOptionsAddBook}
+      />
+      <Stack.Screen
+        name='AddReview'
+        component={ReviewScreen}
+        options={screenOptionsReviewScreen}
+      />
     </Stack.Navigator>
   );
 };
